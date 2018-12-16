@@ -1,0 +1,42 @@
+
+T4F40 000:168 SEGGER J-Link V6.16c Log File (0001ms, 0007ms total)
+T4F40 000:168 DLL Compiled: Jun 16 2017 18:14:49 (0001ms, 0007ms total)
+T4F40 000:168 Logging started @ 2018-12-05 00:41 (0001ms, 0007ms total)
+T4F40 000:169 JLINK_SetWarnOutHandler(...) (0001ms, 0008ms total)
+T4F40 000:170 JLINK_OpenEx(...)
+Firmware: J-Link V9 compiled Jun  2 2222 22:22:22
+Hardware: V9.00
+S/N: 30000299
+Feature(s): GDB, RDI, FlashBP, FlashDL, JFlash, RDDIWEBSRV Webserver running on local port 19080 (0030ms, 0038ms total)
+T4F40 000:170   returns O.K. (0030ms, 0038ms total)
+T4F40 000:201 JLINK_GetEmuCaps()  returns 0xB9FF7BBF (0000ms, 0039ms total)
+T4F40 000:201 JLINK_TIF_GetAvailable(...) (0001ms, 0040ms total)
+T4F40 000:202 JLINK_SetErrorOutHandler(...) (0001ms, 0041ms total)
+T4F40 000:203 JLINK_ExecCommand("ProjectFile = "D:\my project\RM\new project\RM2018.10.11\MDK-ARM\JLinkSettings.ini"", ...).   returns 0x00 (0153ms, 0194ms total)
+T4F40 000:356 JLINK_ExecCommand("Device = STM32F427IIHx", ...). Device "STM32F427II" selected.  returns 0x00 (0002ms, 0196ms total)
+T4F40 000:358 JLINK_ExecCommand("DisableConnectionTimeout", ...).   returns 0x01 (0000ms, 0196ms total)
+T4F40 000:358 JLINK_GetHardwareVersion()  returns 0x15F90 (0000ms, 0196ms total)
+T4F40 000:358 JLINK_GetDLLVersion()  returns 61603 (0000ms, 0196ms total)
+T4F40 000:359 JLINK_GetFirmwareString(...) (0000ms, 0196ms total)
+T4F40 000:359 JLINK_GetDLLVersion()  returns 61603 (0000ms, 0196ms total)
+T4F40 000:359 JLINK_GetCompileDateTime() (0000ms, 0196ms total)
+T4F40 000:359 JLINK_GetFirmwareString(...) (0000ms, 0196ms total)
+T4F40 000:359 JLINK_GetHardwareVersion()  returns 0x15F90 (0000ms, 0196ms total)
+T4F40 000:359 JLINK_TIF_Select(JLINKARM_TIF_JTAG)  returns 0x00 (0001ms, 0197ms total)
+T4F40 000:360 JLINK_SetSpeed(5000) (0000ms, 0197ms total)
+T4F40 000:360 JLINK_SetResetType(JLINKARM_RESET_TYPE_NORMAL)  returns JLINKARM_RESET_TYPE_NORMAL (0000ms, 0197ms total)
+T4F40 000:360 JLINK_Reset() >0x2F8 JTAG>TotalIRLen = ?, IRPrint = 0x..000000000000000000000000 >0xC8 JTAG>STM32 (connect): Can not attach to CPU. Trying connect under reset. >0x2F8 JTAG>TotalIRLen = ?, IRPrint = 0x..000000000000000000000000 >0xC8 JTAG>
+  ***** Error: STM32: Connecting to CPU via connect under reset failed. >0x2F8 JTAG>TotalIRLen = ?, IRPrint = 0x..000000000000000000000000 >0xC8 JTAG>STM32 (connect): Can not attach to CPU. Trying connect under reset. >0x2F8 JTAG>
+TotalIRLen = ?, IRPrint = 0x..000000000000000000000000 >0xC8 JTAG>
+  ***** Error: STM32: Connecting to CPU via connect under reset failed.JLINK_GetIdData(...) >0x2F8 JTAG>TotalIRLen = ?, IRPrint = 0x..000000000000000000000000 >0xC8 JTAG>STM32 (connect): Can not attach to CPU. Trying connect under reset. >0x2F8 JTAG>TotalIRLen = ?, IRPrint = 0x..000000000000000000000000 >0xC8 JTAG>
+  ***** Error: STM32: Connecting to CPU via connect under reset failed. >0x2F8 JTAG>
+TotalIRLen = ?, IRPrint = 0x..000000000000000000000000 >0xC8 JTAG>STM32 (connect): Can not attach to CPU. Trying connect under reset. >0x2F8 JTAG>TotalIRLen = ?, IRPrint = 0x..000000000000000000000000 >0xC8 JTAG>
+  ***** Error: STM32: Connecting to CPU via connect under reset failed. (0272ms, 0741ms total)
+T4F40 000:904 JLINK_GetIdData(...) >0x2F8 JTAG>TotalIRLen = ?, IRPrint = 0x..000000000000000000000000 >0xC8 JTAG>STM32 (connect): Can not attach to CPU. Trying connect under reset. >0x2F8 JTAG>TotalIRLen = ?, IRPrint = 0x..000000000000000000000000 >0xC8 JTAG>
+  ***** Error: STM32: Connecting to CPU via connect under reset failed. >0x2F8 JTAG>TotalIRLen = ?, IRPrint = 0x..000000000000000000000000 >0xC8 JTAG>STM32 (connect): Can not attach to CPU. Trying connect under reset. >0x2F8 JTAG>
+TotalIRLen = ?, IRPrint = 0x..000000000000000000000000 >0xC8 JTAG>
+  ***** Error: STM32: Connecting to CPU via connect under reset failed. (0272ms, 1013ms total)
+T4F40 001:184 JLINK_GetFirmwareString(...) (0000ms, 1013ms total)
+T4F40 002:846 JLINK_Close() (0015ms, 1028ms total)
+T4F40 002:846  (0015ms, 1028ms total)
+T4F40 002:846 Closed (0015ms, 1028ms total)

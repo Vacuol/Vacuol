@@ -525,6 +525,11 @@
               <FileType>1</FileType>
               <FilePath>..\Control\Src\my_usart.c</FilePath>
             </File>
+            <File>
+              <FileName>pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Control\Src\pid.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

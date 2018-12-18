@@ -94,5 +94,13 @@ void Cloud_Position(void)
 	cloud_yaw_position_pid.ref = yaw;										//设定参数：位置环输出
 	PID_Calc(&cloud_yaw_position_pid);
 	
+}
+
+void ALLPID_Init()
+{
+	PID_Init(&cloud_pitch_position_pid,	-7,	0,	0,	1000,	5000);
+	PID_Init(&cloud_pitch_speed_pid,	2.3,0.003,0,	500,5000);
+	PID_Init(&cloud_yaw_position_pid,	6,	0,	0,	1000,	5000);
+	PID_Init(&cloud_yaw_speed_pid	,	-4.0,-0.006,0,	500,5000);
 	
 }

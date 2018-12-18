@@ -7,8 +7,9 @@
 #define CURRENT_LIM 4000				//电流最小值
 #define CURRENT_MAX 16000				//电流最大值
 #define SPEED_MAX 5000
-#define pitch_mid  -800					//云台pitch轴初值   800
-#define yaw_mid 1000						//云台yaw轴初值			300
+#define pitch_mid  -800					//云台pitch轴初值   800				-800black
+#define yaw_mid 1000						//云台yaw轴初值			300		1000black
+
 
 /*****teler*******/
 struct telecon_data

@@ -24,6 +24,7 @@
 "rm\timer.o"
 "rm\can.o"
 "rm\my_usart.o"
+"rm\pid.o"
 "rm\24iic.o"
 "rm\32mpu6050.o"
 --library_type=microlib --strict --scatter "RM\RM.sct"

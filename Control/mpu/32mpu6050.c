@@ -55,8 +55,11 @@ void get_mpu_data(void)
 	MPU_Get_Gyroscope(&sensor.gyro.origin.x, &sensor.gyro.origin.y ,&sensor.gyro.origin.z);
   MPU_Get_Accelerometer(&sensor.acc.origin.x,&sensor.acc.origin.y,&sensor.acc.origin.z);
 	sensor.gyro.radian.x = ((sensor.gyro.origin.x - sensor.gyro.quiet.x)*1000>>15);//得到弧度
-	sensor.gyro.radian.y = ((sensor.gyro.origin.y  - sensor.gyro.quiet.y)*1000>>15) ;
+	sensor.gyro.radian.y = ((sensor.gyro.origin.y - sensor.gyro.quiet.y)*1000>>15) ;
 	sensor.gyro.radian.z = ((sensor.gyro.origin.z - sensor.gyro.quiet.z)*1000>>15) ;
+	sensor.gyro.origin.x = (sensor.gyro.origin.x - sensor.gyro.quiet.x);//得到弧度
+	sensor.gyro.origin.y = (sensor.gyro.origin.y - sensor.gyro.quiet.y) ;
+	sensor.gyro.origin.z = (sensor.gyro.origin.z - sensor.gyro.quiet.z) ;
 }
 
 
@@ -101,7 +104,7 @@ uint8_t MPU6050_Init(void)
 	MPU_Write_Byte(MPU_PWR_MGMT1_REG,0X00);	//唤醒MPU6050 
 	MPU_Set_Gyro_Fsr(3);					//陀螺仪传感器,±2000dps
 	MPU_Set_Accel_Fsr(0);					//加速度传感器,±2g
-	MPU_Set_Rate(50);						//设置采样率50Hz
+	MPU_Set_Rate(1000);						//设置采样率50Hz
 	MPU_Write_Byte(MPU_INT_EN_REG,0X00);	//关闭所有中断
 	MPU_Write_Byte(MPU_USER_CTRL_REG,0X00);	//I2C主模式关闭
 	MPU_Write_Byte(MPU_FIFO_EN_REG,0X00);	//关闭FIFO
@@ -111,7 +114,7 @@ uint8_t MPU6050_Init(void)
 	{
 		MPU_Write_Byte(MPU_PWR_MGMT1_REG,0X01);	//设置CLKSEL,PLL X轴为参考
 		MPU_Write_Byte(MPU_PWR_MGMT2_REG,0X00);	//加速度与陀螺仪都工作
-		MPU_Set_Rate(50);						//设置采样率为50Hz
+		MPU_Set_Rate(1000);						//设置采样率为50Hz
  	}else return 1;
 	return 0;
 }

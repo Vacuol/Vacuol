@@ -33,6 +33,7 @@ void PID_Calc(PID_Regulator_t *pid);
 void PID_Init(PID_Regulator_t *pid,float kp,float ki,float kd,float componentKiMax,float outputMax);
 void Cloud_Speed(void);
 void Cloud_Position(void);
+void ALLPID_Init(void);
 
 
 

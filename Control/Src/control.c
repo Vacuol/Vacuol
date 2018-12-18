@@ -7,6 +7,7 @@
 
 #include "control.h"
 #include "32mpu6050.h"
+#include "pid.h"
 
 
 /************TELE***************/
@@ -178,7 +179,7 @@ void Bodan_pid(void)
 /*参数统一初始化*/	
 void para_init(void)
 {
-	
+	ALLPID_Init();
 	underpan_P=2;//ok
 	underpan_I=0.035;//ok
 	IOUT_P=1.8;

@@ -93,21 +93,21 @@ typedef struct{
 				float Z;}FLOAT_XYZ;
 
 struct _float{
-	      float x;
+				float x;
 				float y;
 				float z;};
 
 struct _int16{
-       int16_t x;
-	     int16_t y;
-	     int16_t z;};		
+       short x;
+	    short y;
+	     short z;};		
 
 struct _trans{
-     struct _int16 origin;  //原始值
+	   struct _int16 origin;  //原始值
 	   struct _int16 averag;  //平均值
 	   struct _int16 histor;  //历史值
 	   struct _int16 quiet;   //静态值
-	   struct _float radian;  //弧度值 
+	   struct _float radian;  //弧度值
           };
 
 struct _sensor{   

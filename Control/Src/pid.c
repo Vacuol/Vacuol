@@ -27,20 +27,20 @@ void PID_Calc(PID_Regulator_t *pid)
 	pid->componentKi  = pid->ki * pid->inte;
 	pid->componentKd  = pid->kd * (pid->err[1] - pid->err[0]);
 	
-	if(pid->inte > 2000)//对积分项进行限制
-		pid->inte = 2000;
-	else if (pid->inte < -2000)
-		pid->inte = -2000;
+	if(pid->inte > pid->componentKiMax)//对积分项进行限制
+		pid->inte = pid->componentKiMax;
+	else if (pid->inte < -pid->componentKiMax)
+		pid->inte = -pid->componentKiMax;
 	
 //	if(pid->componentKp > pid->componentKpMax)
 //		pid->componentKp = pid->componentKpMax;
 //	else if (pid->componentKp < -pid->componentKpMax)
 //		pid->componentKp = -pid->componentKpMax;
-	
-	if(pid->componentKi > pid->componentKiMax)
-		pid->componentKi = pid->componentKiMax;
-	else if (pid->componentKi < -pid->componentKiMax)
-		pid->componentKi = -pid->componentKiMax;
+//	
+//	if(pid->componentKi > pid->componentKiMax)
+//		pid->componentKi = pid->componentKiMax;
+//	else if (pid->componentKi < -pid->componentKiMax)
+//		pid->componentKi = -pid->componentKiMax;
 
 //	if(pid->componentKd > pid->componentKdMax)
 //		pid->componentKd = pid->componentKdMax;
@@ -85,7 +85,7 @@ void Cloud_Speed(void)
 void Cloud_Position(void)
 {
 	//PITCH
-	cloud_pitch_position_pid.fdb = cloud_para[0].Bmechanical_angle;					//反馈参数:云台电机角度
+	cloud_pitch_position_pid.fdb = cloud_para[0].Bmechanical_angle;				//反馈参数:云台电机角度
 	cloud_pitch_position_pid.ref = pitch;										//设定参数
 	PID_Calc(&cloud_pitch_position_pid);
 	
@@ -98,9 +98,12 @@ void Cloud_Position(void)
 
 void ALLPID_Init()
 {
-	PID_Init(&cloud_pitch_position_pid,	-7,	0,	0,	1000,	5000);
-	PID_Init(&cloud_pitch_speed_pid,	2.3,0.003,0,	500,5000);
-	PID_Init(&cloud_yaw_position_pid,	6,	0,	0,	1000,	5000);
-	PID_Init(&cloud_yaw_speed_pid	,	-4.0,-0.006,0,	500,5000);
+	PID_Init(&cloud_pitch_position_pid,	-70,	-1,	5,	3000,	10000);
+	//PID_Init(&cloud_pitch_speed_pid,	2.3,0.003,0,	500,3000);
+	PID_Init(&cloud_pitch_speed_pid,	0.30, 0, -0,	2000,5000);
+	
+	PID_Init(&cloud_yaw_position_pid,	45,	0,	-7,	1000,	12000);
+	//PID_Init(&cloud_yaw_speed_pid	,	-4.0,-0.006,0,	500,3000);
+	PID_Init(&cloud_yaw_speed_pid	,	-0.5,-0,-0,	1000,5000);
 	
 }

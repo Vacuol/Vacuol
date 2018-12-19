@@ -33,5 +33,6 @@ rm\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 rm\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 rm\stm32f4xx_it.o: ../Inc/stm32f4xx_it.h
 rm\stm32f4xx_it.o: ..\Control\Inc\control.h
+rm\stm32f4xx_it.o: ..\Control\Inc\pid.h
 rm\stm32f4xx_it.o: ..\Control\Inc\timer.h
 rm\stm32f4xx_it.o: ..\Control\Inc\can.h

@@ -147,8 +147,10 @@ int main(void)
 	Gyro_OFFEST();																//陀螺仪校准
 	
 	HAL_UART_Receive_IT(&huart2, camera.recieve,sizeof(camera.recieve));		//开启视觉数据接收中断
+	HAL_UART_Receive_IT(&huart4, &rxPID.pidReadBuf, 1);							//pid调节参数接收中断
 	HAL_UART_Receive_IT(&huart6, judge.recieve,sizeof(judge.recieve));			//开启裁判系统接收中断
 
+	rxPID.pidAdjust = &(cloud_pitch_position_pid);
 
   /* USER CODE END 2 */
 
@@ -329,7 +331,7 @@ static void MX_TIM6_Init(void)
   htim6.Instance = TIM6;
   htim6.Init.Prescaler = 84-1;
   htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim6.Init.Period = 1000-1;
+  htim6.Init.Period = 2000-1;
   if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -395,7 +397,7 @@ static void MX_UART4_Init(void)
 {
 
   huart4.Instance = UART4;
-  huart4.Init.BaudRate = 115200;
+  huart4.Init.BaudRate = 9600;
   huart4.Init.WordLength = UART_WORDLENGTH_8B;
   huart4.Init.StopBits = UART_STOPBITS_1;
   huart4.Init.Parity = UART_PARITY_NONE;
@@ -433,7 +435,7 @@ static void MX_USART2_UART_Init(void)
 {
 
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 9600;
+  huart2.Init.BaudRate = 115200;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
@@ -492,7 +494,6 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOG_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 

@@ -47,7 +47,7 @@ void Test_task(void)
 //			Timetick2ms=0;
 //			break;
 //	}
-	if (Timetick1ms%10==0){
+	if (Timetick1ms==10){
 		Timetick1ms=0;
 		Cloud_Position();
 	}

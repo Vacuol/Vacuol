@@ -45,6 +45,7 @@
 extern CAN_HandleTypeDef hcan1;
 extern TIM_HandleTypeDef htim6;
 extern DMA_HandleTypeDef hdma_usart1_rx;
+extern UART_HandleTypeDef huart4;
 extern UART_HandleTypeDef huart2;
 extern UART_HandleTypeDef huart6;
 
@@ -253,6 +254,34 @@ void USART2_IRQHandler(void)
 	}
 	
   /* USER CODE END USART2_IRQn 1 */
+}
+
+/**
+* @brief This function handles UART4 global interrupt.
+*/
+void UART4_IRQHandler(void)
+{
+  /* USER CODE BEGIN UART4_IRQn 0 */
+	uint32_t timeout=0;
+  /* USER CODE END UART4_IRQn 0 */
+  HAL_UART_IRQHandler(&huart4);
+  /* USER CODE BEGIN UART4_IRQn 1 */
+	timeout = 0;
+	while (HAL_UART_GetState(&huart4) != HAL_UART_STATE_READY) //等待就绪
+	{
+		timeout++; ////超时处理
+		if (timeout > HAL_MAX_DELAY)
+			break;
+	}
+
+	timeout = 0;
+	while (HAL_UART_Receive_IT(&huart4, &rxPID.pidReadBuf, 1) != HAL_OK) //一次处理完成之后，重新开启中断并设置RxXferCount为1
+	{
+		timeout++; //超时处理
+		if (timeout > HAL_MAX_DELAY)
+			break;
+	}
+  /* USER CODE END UART4_IRQn 1 */
 }
 
 /**

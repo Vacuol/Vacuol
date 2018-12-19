@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<JScopeProject>
+    <FileVersion major="1" minor="1" />
+    <Project>
+        <Configuration>
+            <JLink>
+                <Options IsRTTSession="0" IsRTTWithTimeStamp="1" SamplingPeriod="100" Connection="1" SerialNo="0" IP="" TargetDevice="Cortex-M4" TargetInterface="SWD" InterfaceSpeed="4000" />
+            </JLink>
+            <ElfFile Name="D:\GitHub\Vacuol\MDK-ARM\RM\RM.axf" />
+            <DataFile Name="" />
+            <RawFile Name="" />
+            <Scope>
+                <Options TimeResolutionUs="100000" />
+            </Scope>
+        </Configuration>
+        <Windows>
+            <Graph Show="1" />
+            <Watch Show="1" />
+        </Windows>
+        <SelectedSymbols>
+            <Symbol>
+                <Options Name="x" Address="0x20000558" Type="short" TypeID="11" Size="2" GraphColorRed="255" GraphColorGreen="215" GraphColorBlue="0" YMinSampled="-11781" YMaxSampled="21770" YAvgSampled="61" Offset="4" ShowInGraph="1" YOffset="400" IsAutoConfig="0" YResolution="5000" MaxValue="40000" File="..\Control\mpu\32mpu6050.c" Scope="0" DrawStyle="0" />
+            </Symbol>
+            <Symbol>
+                <Options Name="y" Address="0x2000055A" Type="short" TypeID="11" Size="2" GraphColorRed="0" GraphColorGreen="255" GraphColorBlue="0" YMinSampled="-20192" YMaxSampled="30245" YAvgSampled="-24" Offset="6" ShowInGraph="1" YOffset="400" IsAutoConfig="0" YResolution="5000" MaxValue="40000" File="..\Control\mpu\32mpu6050.c" Scope="0" DrawStyle="0" />
+            </Symbol>
+            <Symbol>
+                <Options Name="torque_current" Address="0x200003BA" Type="short" TypeID="11" Size="2" GraphColorRed="0" GraphColorGreen="0" GraphColorBlue="176" YMinSampled="-24552" YMaxSampled="27232" YAvgSampled="-1383" Offset="8" ShowInGraph="1" YOffset="200" IsAutoConfig="1" YResolution="20000" MaxValue="40000" File="..\Control\Src\control.c" Scope="0" DrawStyle="0" />
+            </Symbol>
+        </SelectedSymbols>
+    </Project>
+</JScopeProject>

@@ -2,6 +2,7 @@
 #define _CONTROL_H
 
 #include "stm32f4xx_HAL.h"
+#include "pid.h"
 
 
 #define CURRENT_LIM 4000				//电流最小值
@@ -96,9 +97,18 @@ typedef struct JUDGE
 //    uint8_t sum;
 } JUDGE;
 
+typedef struct
+{
+    uint8_t Count;
+	uint8_t Buf[20];
+	uint8_t		Sum;
+	uint8_t		pidReadBuf;
+	PID_Regulator_t* 	pidAdjust;
+} RxPID;
 
 
 
+extern RxPID rxPID;
 extern uint8_t teledata_rx[18];
 extern struct telecon_data tele_data;
 extern struct underpan_parameter underpan_para[4];

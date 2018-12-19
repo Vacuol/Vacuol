@@ -48,18 +48,20 @@ void Gyro_OFFEST(void)
 	 sensor.gyro.quiet.x=tempgx/20;
 	 sensor.gyro.quiet.y=tempgy/20;
 	 sensor.gyro.quiet.z=tempgz/20;
-	  
+	 
 }
 void get_mpu_data(void)
 {
 	MPU_Get_Gyroscope(&sensor.gyro.origin.x, &sensor.gyro.origin.y ,&sensor.gyro.origin.z);
-  MPU_Get_Accelerometer(&sensor.acc.origin.x,&sensor.acc.origin.y,&sensor.acc.origin.z);
-	sensor.gyro.radian.x = ((sensor.gyro.origin.x - sensor.gyro.quiet.x)*1000>>15);//得到弧度
-	sensor.gyro.radian.y = ((sensor.gyro.origin.y - sensor.gyro.quiet.y)*1000>>15) ;
-	sensor.gyro.radian.z = ((sensor.gyro.origin.z - sensor.gyro.quiet.z)*1000>>15) ;
-	sensor.gyro.origin.x = (sensor.gyro.origin.x - sensor.gyro.quiet.x);//得到弧度
-	sensor.gyro.origin.y = (sensor.gyro.origin.y - sensor.gyro.quiet.y) ;
-	sensor.gyro.origin.z = (sensor.gyro.origin.z - sensor.gyro.quiet.z) ;
+	MPU_Get_Accelerometer(&sensor.acc.origin.x,&sensor.acc.origin.y,&sensor.acc.origin.z);
+//	sensor.gyro.radian.x = ((sensor.gyro.origin.x - sensor.gyro.quiet.x)*1000>>15);//得到弧度
+//	sensor.gyro.radian.y = ((sensor.gyro.origin.y - sensor.gyro.quiet.y)*1000>>15) ;
+//	sensor.gyro.radian.z = ((sensor.gyro.origin.z - sensor.gyro.quiet.z)*1000>>15) ;
+	sensor.gyro.radian.x = (sensor.gyro.origin.x - sensor.gyro.quiet.x);//得到弧度
+	sensor.gyro.radian.y = (sensor.gyro.origin.y - sensor.gyro.quiet.y) ;
+	sensor.gyro.radian.z = (sensor.gyro.origin.z - sensor.gyro.quiet.z) ;
+	sensor.gyro.histor.x = sensor.gyro.radian.x;
+	sensor.gyro.histor.y = sensor.gyro.radian.y;
 }
 
 
@@ -153,7 +155,7 @@ uint8_t MPU_Set_LPF(uint16_t lpf)
 //rate:4~1000(Hz)
 //返回值:0,设置成功
 //    其他,设置失败 
-uint8_t MPU_Set_Rate(uint16_t rate)
+uint8_t MPU_Set_Rate(uint16_t rate)				
 {
 	uint8_t data;
 	if(rate>1000)rate=1000;

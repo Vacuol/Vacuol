@@ -45,6 +45,8 @@ struct CAMERA camera;
 //≤√≈–œµÕ≥
 struct JUDGE judge;
 
+RxPID rxPID;
+
 
 /****************************************/
 /****************function****************/

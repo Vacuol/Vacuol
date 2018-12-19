@@ -8,6 +8,7 @@
 #include "my_usart.h"
 #include "control.h"
 #include <math.h>
+#include "pid.h"
 
 
 //struct CAMERA camera;
@@ -19,6 +20,13 @@ extern UART_HandleTypeDef huart6;
 uint8_t cheat_ready=1,cheat_counter=2;
 uint8_t a;
 double angle;
+
+uint8_t RX_PID_Count = 0;
+uint8_t RX_PID_Buf[20];
+uint8_t		RX_PID_Sum = 0;
+uint8_t		pidReadBuf;
+uint8_t charBuf[4];
+PID_Regulator_t 	*pidAdjust;
 
 void sendware(void *wareaddr, uint32_t waresize)
 {
@@ -140,7 +148,53 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		
 	}
 	
+	else if (huart->Instance == UART4)
+	{
+		rxPID.Buf[rxPID.Count & 0x7f] = rxPID.pidReadBuf;
+		//是否开始接收
+		if ((rxPID.Count & 0x7f) == 0 && rxPID.Buf[0] != '$')
+			return;
 
+		rxPID.Count++;
+
+		if ((rxPID.Count & 0x7f) == 8)
+		{
+			//接收正确
+			if (rxPID.Sum == rxPID.pidReadBuf)
+			{
+				for (int i = 0; i < 4; i++)
+					charBuf[i] = rxPID.Buf[i + 3];
+
+				switch (rxPID.Buf[1])
+				{
+				case 'p':
+					memcpy(&rxPID.pidAdjust->kp, charBuf, 4);
+					if (rxPID.Buf[2] == '-')
+						rxPID.pidAdjust->kp = -rxPID.pidAdjust->kp;
+					break;
+				case 'i':
+					memcpy(&rxPID.pidAdjust->ki, charBuf, 4);
+					if (rxPID.Buf[2] == '-')
+						rxPID.pidAdjust->ki = -rxPID.pidAdjust->ki;
+					break;
+				case 'd':
+					memcpy(&rxPID.pidAdjust->kd, charBuf, 4);
+					if (rxPID.Buf[2] == '-')
+						rxPID.pidAdjust->kd = -rxPID.pidAdjust->kd;
+					break;
+				}
+				rxPID.Sum = 0;
+				rxPID.Count = 0;
+			}
+			else
+			{
+				rxPID.Sum = 0;
+				rxPID.Count = 0;
+			}
+		}
+		else
+			rxPID.Sum += rxPID.pidReadBuf;
+	}
     
  
 }

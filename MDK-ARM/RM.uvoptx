@@ -138,7 +138,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name>\裣</Name>
+          <Name>T馭</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -155,25 +155,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>88</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134220430</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Control\Src\pid.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\RM\../Control/Src/pid.c\88</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
           <LineNumber>1509</LineNumber>
           <EnabledFlag>0</EnabledFlag>
-          <Address>134222056</Address>
+          <Address>134221984</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -221,6 +205,11 @@
           <WinNumber>1</WinNumber>
           <ItemText>angle</ItemText>
         </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>sensor.gyro.origin,0x0A</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>
@@ -257,6 +246,11 @@
           <count>6</count>
           <WinNumber>2</WinNumber>
           <ItemText>cloud_yaw_speed_pid</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>camera</ItemText>
         </Ww>
       </WatchWindow2>
       <Tracepoint>

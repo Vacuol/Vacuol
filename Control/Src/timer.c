@@ -10,7 +10,7 @@
 #include "can.h"
 #include "pid.h"
 #include "32mpu6050.h"
-uint8_t Timetick1ms = 0;
+uint16_t Timetick1ms = 0;
 
 void Test_task(void)
 {
@@ -47,10 +47,23 @@ void Test_task(void)
 //			Timetick2ms=0;
 //			break;
 //	}
-	if (Timetick1ms==10){
+
+//	if	(Timetick1ms%8==0){
+//		underpan_pid();						//µ×ÅÌµç»úpidÔËËã
+//		underpan_motor_output(underpan_para[0].i_output,underpan_para[1].i_output,
+//								underpan_para[2].i_output,underpan_para[3].i_output);
+//	}
+	
+	if (Timetick1ms%10==0){
 		Timetick1ms=0;
 		Cloud_Position();
 	}
+	
+	if (Timetick1ms%4==0){
+		Bodan_pid();
+	}
+	
+	if (Timetick1ms>1000) Timetick1ms=0;
 	
 	
 }

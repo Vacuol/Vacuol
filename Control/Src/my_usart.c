@@ -17,7 +17,7 @@ extern UART_HandleTypeDef huart2;
 extern UART_HandleTypeDef huart4;
 extern UART_HandleTypeDef huart6;
 
-uint8_t cheat_ready=1,cheat_counter=2;
+uint8_t cheat_ready=1;
 uint8_t a;
 double angle;
 
@@ -103,16 +103,14 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
                     camera.transmit[0]='R';
                     HAL_UART_Transmit(&huart2,camera.transmit,1,1000);
 										
-										if (tele_data.s1==0){
+										if (tele_data.s1==1){
 											if (cheat_ready==1){				
-														cheat_counter++;
-														if (cheat_counter==1){
-																pitch=cloud_para[0].Bmechanical_angle+1*camera.y;
-																angle=atan(camera.x*0.00222)*1304.05;
-																yaw=cloud_para[1].Bmechanical_angle-angle ;
-																cheat_ready=0;
-																cheat_counter=0;
-														}
+												angle=camera.y;
+												pitch=cloud_para[0].Bmechanical_angle+angle;
+												angle=atan(camera.x*0.00222)*1304.05;
+												yaw=cloud_para[1]. Bmechanical_angle-angle ;
+												cheat_ready=0;
+
 											}
 												if(cloud_para[1].Bmechanical_angle-yaw>-30&&cloud_para[1].Bmechanical_angle-yaw<30)
 												if(cloud_para[0].Bmechanical_angle-pitch>-100&&cloud_para[0].Bmechanical_angle-pitch<100)

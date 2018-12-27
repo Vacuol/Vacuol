@@ -82,7 +82,10 @@ void telecontroller_data(void)
 			if(yaw>(yaw_mid+800))yaw=yaw_mid+800;
 	}
 	
-
+	if (tele_data.s2==1){
+		bodan_speed=-500;
+	}
+	else bodan_speed=0;
 		
 }
 	

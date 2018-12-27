@@ -149,6 +149,14 @@ int main(void)
 	HAL_UART_Receive_IT(&huart2, camera.recieve,sizeof(camera.recieve));		//开启视觉数据接收中断
 	HAL_UART_Receive_IT(&huart4, &rxPID.pidReadBuf, 1);							//pid调节参数接收中断
 	HAL_UART_Receive_IT(&huart6, judge.recieve,sizeof(judge.recieve));			//开启裁判系统接收中断
+	HAL_TIM_PWM_Start(&htim12,TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim12,TIM_CHANNEL_2);
+	TIM12->CCR1=800;TIM12->CCR2=800;
+	HAL_Delay(2000);
+	HAL_Delay(2000);
+	HAL_Delay(2000);
+	HAL_Delay(2000);
+	TIM12->CCR1=1640;TIM12->CCR2=1640;
 
 	rxPID.pidAdjust = &(cloud_pitch_position_pid);
 
@@ -435,7 +443,7 @@ static void MX_USART2_UART_Init(void)
 {
 
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
+  huart2.Init.BaudRate = 9600;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;

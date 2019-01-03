@@ -16,9 +16,6 @@ PID_Regulator_t cloud_pitch_position_pid;
 PID_Regulator_t cloud_yaw_speed_pid;
 PID_Regulator_t cloud_yaw_position_pid;
 
-PID_Regulator_t cloud_yaw_cheet_pid;
-PID_Regulator_t cloud_pitch_cheet_pid;
-
 void PID_Calc(PID_Regulator_t *pid)
 {
 	pid->err[0] = pid->err[1];
@@ -71,45 +68,32 @@ void PID_Init(PID_Regulator_t *pid,float kp,float ki,float kd,float componentKiM
 	pid->outputMax = outputMax;
 }
 
-void Cloud_Speed(float pitch_ref, float yaw_ref)
+void Cloud_Speed(void)
 {
 	//PITCH
 	cloud_pitch_speed_pid.fdb = sensor.gyro.radian.y;					//反馈参数：陀螺仪角速度
-	cloud_pitch_speed_pid.ref = pitch_ref;			//设定参数
+	cloud_pitch_speed_pid.ref = cloud_pitch_position_pid.output;			//设定参数：位置环输出
 	PID_Calc(&cloud_pitch_speed_pid);
 	
 	//YAW
 	cloud_yaw_speed_pid.fdb = sensor.gyro.radian.x;					//反馈参数：陀螺仪角速度
-	cloud_yaw_speed_pid.ref = yaw_ref;			//设定参数
+	cloud_yaw_speed_pid.ref = cloud_yaw_position_pid.output;			//设定参数：位置环输出
 	PID_Calc(&cloud_yaw_speed_pid);
 	
 }
 
-void Cloud_Position(float pitch_ref, float yaw_ref)
+void Cloud_Position(void)
 {
 	//PITCH
 	cloud_pitch_position_pid.fdb = cloud_para[0].Bmechanical_angle;				//反馈参数:云台电机角度
-	cloud_pitch_position_pid.ref = pitch_ref;										//设定参数
+	cloud_pitch_position_pid.ref = pitch;										//设定参数
 	PID_Calc(&cloud_pitch_position_pid);
 	
 	//YAW
 	cloud_yaw_position_pid.fdb = cloud_para[1].Bmechanical_angle;					//反馈参数：云台电机角度
-	cloud_yaw_position_pid.ref = yaw_ref;										//设定参数：位置环输出
+	cloud_yaw_position_pid.ref = yaw;										//设定参数：位置环输出
 	PID_Calc(&cloud_yaw_position_pid);
 	
-}
-
-void Cloud_Cheet(float pitch_ref, float yaw_ref)
-{
-	//PITCH
-	cloud_pitch_cheet_pid.fdb = pitch_ref;
-	cloud_pitch_cheet_pid.ref = 0;
-	PID_Calc(&cloud_pitch_cheet_pid);
-	
-	//YAW
-	cloud_yaw_cheet_pid.fdb = yaw_ref;
-	cloud_yaw_cheet_pid.ref = 0;
-	PID_Calc(&cloud_yaw_cheet_pid);
 }
 
 void ALLPID_Init()
@@ -121,8 +105,5 @@ void ALLPID_Init()
 	PID_Init(&cloud_yaw_position_pid,	45,	0,	-7,	1000,	12000);
 	//PID_Init(&cloud_yaw_speed_pid	,	-4.0,-0.006,0,	500,3000);
 	PID_Init(&cloud_yaw_speed_pid	,	-0.5,-0,-0,	1000,5000);
-	
-	PID_Init(&cloud_yaw_cheet_pid	,	45,0.1,-6,	1000,12000);
-	PID_Init(&cloud_pitch_cheet_pid	,	50,0.4,-4,	3000,30000);
 	
 }

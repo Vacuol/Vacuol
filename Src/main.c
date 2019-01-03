@@ -151,12 +151,12 @@ int main(void)
 	HAL_UART_Receive_IT(&huart6, judge.recieve,sizeof(judge.recieve));			//开启裁判系统接收中断
 	HAL_TIM_PWM_Start(&htim12,TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim12,TIM_CHANNEL_2);
-//	TIM12->CCR1=800;TIM12->CCR2=800;
-//	HAL_Delay(2000);
-//	HAL_Delay(2000);
-//	HAL_Delay(2000);
-//	HAL_Delay(2000);
-//	TIM12->CCR1=1640;TIM12->CCR2=1640;
+	TIM12->CCR1=800;TIM12->CCR2=800;
+	HAL_Delay(2000);
+	HAL_Delay(2000);
+	HAL_Delay(2000);
+	HAL_Delay(2000);
+	TIM12->CCR1=1640;TIM12->CCR2=1640;
 
 	rxPID.pidAdjust = &(cloud_pitch_position_pid);
 
@@ -177,7 +177,7 @@ int main(void)
 	output[2]=yaw;
 
 	sendware(output,sizeof(output)); 									//调试用的串口输出		
-	HAL_Delay(100);
+  HAL_Delay(100);
 
   }
   /* USER CODE END 3 */

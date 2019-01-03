@@ -82,7 +82,8 @@ typedef struct CAMERA
     uint8_t transmit[1];
     int16_t x;
     int16_t y;
-
+		int16_t x_last;
+		int16_t y_last;
     uint8_t sum;
 } CAMERA;
 

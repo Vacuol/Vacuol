@@ -17,7 +17,7 @@ extern UART_HandleTypeDef huart2;
 extern UART_HandleTypeDef huart4;
 extern UART_HandleTypeDef huart6;
 
-uint8_t cheat_ready=1,cheat_counter;
+uint8_t cheat_ready=1;
 uint8_t a;
 double angle;
 
@@ -45,33 +45,34 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	/************小电脑串口数据处理*************/
     if (huart->Instance==USART2)
     {
+			//sendware(camera.recieve,sizeof(camera.recieve));
         switch (camera.count)
         {
-            case 0:																//the first data should be '&',or MCU will refuse the data
+            case 0:
                 if (camera.recieve[0]=='&') camera.count=1;
                 else camera.count=0;
 								data[camera.count] = camera.recieve[0];
                 break;
-            case 1:																//the second data should be '%'
+            case 1:
                 if (camera.recieve[0]=='%') camera.count=2;
                 else camera.count=0;
 								data[camera.count] = camera.recieve[0];
                 break;
             case 2:
-                camera.sum = '%'+'&';											//camera.sum will add all data
-                camera.x = camera.recieve[0]<<8;								//data of x
+                camera.sum = '%'+'&';
+                camera.x = camera.recieve[0]<<8;
                 camera.sum += camera.recieve[0];
                 camera.count=3;
 								data[camera.count] = camera.recieve[0];
                 break;
             case 3:
-                camera.x += camera.recieve[0];									//data of x
+                camera.x += camera.recieve[0];
                 camera.sum += camera.recieve[0];
                 camera.count=4;
 								data[camera.count] = camera.recieve[0];
                 break;
             case 4:
-                if (camera.recieve[0]=='-') camera.x = -camera.x;				//sign of x
+                if (camera.recieve[0]=='-') camera.x = -camera.x;
                 camera.sum += camera.recieve[0];
                 camera.count=5;
 								data[camera.count] = camera.recieve[0];
@@ -95,31 +96,27 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 								data[camera.count] = camera.recieve[0];
                 break;
             case 8:
-                if (camera.sum==camera.recieve[0])								//camera.sum should equal this data
-                {						
-                    //camera.transmit[0]='R';
-                    //HAL_UART_Transmit(&huart2,camera.transmit,1,1000);		//response to TX2
+                if (camera.sum==camera.recieve[0])
+                {
+									data[9] = camera.recieve[0];
+										//sendware()
+                    camera.transmit[0]='R';
+                    HAL_UART_Transmit(&huart2,camera.transmit,1,1000);
 										
-					if (tele_data.s1==1){
-						if (cheat_counter==0){
-							if (cheat_ready==1){				
-								angle=camera.y;
-								pitch=cloud_para[0].Bmechanical_angle+angle;
-								angle=atan(camera.x*0.00222)*1304.05;
-								yaw=cloud_para[1]. Bmechanical_angle-angle ;
-								cheat_ready=0;
-							
-							}
-							if(cloud_para[1].Bmechanical_angle-yaw>-30&&cloud_para[1].Bmechanical_angle-yaw<30)
-							if(cloud_para[0].Bmechanical_angle-pitch>-100&&cloud_para[0].Bmechanical_angle-pitch<100)
-								cheat_ready=1;
-							
-						}
-						cheat_counter++;
-						
-						if (cheat_counter==1) cheat_counter=0;					//loss  data,wait for camera
-					}
-				}
+										if (tele_data.s1==1){
+											if (cheat_ready==1){				
+												angle=camera.y;
+												pitch=cloud_para[0].Bmechanical_angle+angle;
+												angle=atan(camera.x*0.00222)*1304.05;
+												yaw=cloud_para[1]. Bmechanical_angle-angle ;
+												cheat_ready=0;
+
+											}
+												if(cloud_para[1].Bmechanical_angle-yaw>-30&&cloud_para[1].Bmechanical_angle-yaw<30)
+												if(cloud_para[0].Bmechanical_angle-pitch>-100&&cloud_para[0].Bmechanical_angle-pitch<100)
+													cheat_ready=1;
+											
+										}}
                 else {
                     camera.x=0;
                     camera.y=0;
@@ -138,7 +135,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 					if(yaw<(yaw_mid-800))yaw=yaw_mid-800;
 					if(yaw>(yaw_mid+800))yaw=yaw_mid+800;
 					
-		}   
+    }   
 	}
 	/******************裁判系统串口数据处理********************/
 	else if (huart->Instance==USART6)

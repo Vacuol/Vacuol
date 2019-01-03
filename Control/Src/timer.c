@@ -16,11 +16,46 @@ void Test_task(void)
 {
 	Timetick1ms++;
 	get_mpu_data();
-	Cloud_Speed();
+
+	if(tele_data.s1 == 2)
+	{
+		Cloud_Speed(cloud_pitch_position_pid.output, cloud_yaw_position_pid.output);
 	
-	cloud_para[0].motor_output=cloud_pitch_speed_pid.output;
-	cloud_para[1].motor_output=cloud_yaw_speed_pid.output;
-	cloud_motor_output(cloud_para[0].motor_output,cloud_para[1].motor_output,dan_para[0].motor_output);
+		cloud_para[0].motor_output=cloud_pitch_speed_pid.output;
+		cloud_para[1].motor_output=cloud_yaw_speed_pid.output;
+		cloud_motor_output(cloud_para[0].motor_output,cloud_para[1].motor_output,dan_para[0].motor_output);
+		
+		if (Timetick1ms%10==0)
+		{
+			Cloud_Position(pitch, yaw);
+		}
+	}
+	else if(tele_data.s1 == 3)
+	{
+		Cloud_Speed(cloud_pitch_cheet_pid.output, cloud_yaw_cheet_pid.output);
+	
+		cloud_para[0].motor_output=cloud_pitch_speed_pid.output;
+		cloud_para[1].motor_output=cloud_yaw_speed_pid.output;
+		cloud_motor_output(cloud_para[0].motor_output,cloud_para[1].motor_output,dan_para[0].motor_output);
+		
+		if (Timetick1ms%10==0)
+		{
+			Cloud_Cheet(camera.y, camera.x);
+		}
+	}
+	else
+	{
+		Cloud_Speed(cloud_pitch_position_pid.output, cloud_yaw_position_pid.output);
+	
+		cloud_para[0].motor_output=cloud_pitch_speed_pid.output;
+		cloud_para[1].motor_output=cloud_yaw_speed_pid.output;
+		cloud_motor_output(cloud_para[0].motor_output,cloud_para[1].motor_output,dan_para[0].motor_output);
+		
+		if (Timetick1ms%10==0)
+		{
+			Cloud_Position(pitch_mid, yaw_mid);
+		}
+	}
 //	switch(Timetick2ms)
 //	{
 //		case 1:
@@ -54,12 +89,10 @@ void Test_task(void)
 //								underpan_para[2].i_output,underpan_para[3].i_output);
 //	}
 	
-	if (Timetick1ms%10==0){
-		Timetick1ms=0;
-		Cloud_Position();
-	}
+
 	
-	if (Timetick1ms%4==0){
+	if (Timetick1ms%4==0)
+	{
 		Bodan_pid();
 	}
 	

@@ -29,10 +29,15 @@ extern PID_Regulator_t cloud_pitch_position_pid;
 extern PID_Regulator_t cloud_yaw_speed_pid;
 extern PID_Regulator_t cloud_yaw_position_pid;
 
+extern PID_Regulator_t cloud_yaw_cheet_pid;
+extern PID_Regulator_t cloud_pitch_cheet_pid;
+
+
 void PID_Calc(PID_Regulator_t *pid);
 void PID_Init(PID_Regulator_t *pid,float kp,float ki,float kd,float componentKiMax,float outputMax);
-void Cloud_Speed(void);
-void Cloud_Position(void);
+void Cloud_Speed(float pitch_ref, float yaw_ref);
+void Cloud_Position(float pitch_ref, float yaw_ref);
+void Cloud_Cheet(float pitch_ref, float yaw_ref);
 void ALLPID_Init(void);
 
 

@@ -103,20 +103,23 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
                     camera.transmit[0]='R';
                     HAL_UART_Transmit(&huart2,camera.transmit,1,1000);
 										
-										if (tele_data.s1==1){
-											if (cheat_ready==1){				
-												angle=camera.y;
-												pitch=cloud_para[0].Bmechanical_angle+angle;
-												angle=atan(camera.x*0.00222)*1304.05;
-												yaw=cloud_para[1]. Bmechanical_angle-angle ;
-												cheat_ready=0;
+					if (tele_data.s1==1){
+						if (cheat_ready==1){				
+							angle=camera.y;
+							pitch=cloud_para[0].Bmechanical_angle+angle;
+							
+							if (camera.x>15) angle=atan(camera.x*0.00222)*1304.05;
+							else angle=atan(camera.x*0.00222)*904.05;
+							yaw=cloud_para[1]. Bmechanical_angle-angle ;			//防止接收数据0时依然零漂
+							cheat_ready=0;
 
-											}
-												if(cloud_para[1].Bmechanical_angle-yaw>-30&&cloud_para[1].Bmechanical_angle-yaw<30)
-												if(cloud_para[0].Bmechanical_angle-pitch>-100&&cloud_para[0].Bmechanical_angle-pitch<100)
-													cheat_ready=1;
-											
-										}}
+						}
+						if(cloud_para[1].Bmechanical_angle-yaw>-60&&cloud_para[1].Bmechanical_angle-yaw<60)
+						if(cloud_para[0].Bmechanical_angle-pitch>-100&&cloud_para[0].Bmechanical_angle-pitch<100)
+							cheat_ready=1;
+						
+					}
+				}
                 else {
                     camera.x=0;
                     camera.y=0;
@@ -135,7 +138,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 					if(yaw<(yaw_mid-800))yaw=yaw_mid-800;
 					if(yaw>(yaw_mid+800))yaw=yaw_mid+800;
 					
-    }   
+		}   
 	}
 	/******************裁判系统串口数据处理********************/
 	else if (huart->Instance==USART6)
